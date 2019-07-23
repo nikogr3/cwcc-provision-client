@@ -96,6 +96,40 @@ describe('client.team.list()', function () {
   })
 })
 
+describe('client.team.modify()', function () {
+  it('should modify team by ID', function (done) {
+    client.team.modify(cache.id, [
+      {
+        "id": cache.id,
+        "type": "team",
+        "attributes": {
+          "priority__i": 3,
+          "multimediaProfileId__s": "AWX8rlIDVEprkAUKEc2L",
+          "siteId__s": "AWX8rlYT_1uTFjV88ROM",
+          "capacity__l": 0,
+          "name__s": "T_mocha_test_1",
+          "teamType__i": 1,
+          "teamDn__s": "0",
+          "teamStatus__s": "In Service",
+          "status__i": 1,
+          "skillProfileId__s": ""
+        }
+      }
+    ])
+    .then(response => {
+      // console.log(JSON.stringify(response, null, 2))
+      // extract new object ID from response
+      cache.id = response[0].links[0].href.split('/').pop()
+      // log
+      console.log('modified team', 'T_mocha_test_1', ':', cache.id)
+      done()
+    })
+    .catch(e => {
+      done(e)
+    })
+  })
+})
+
 describe('client.team.delete()', function () {
   it('should delete team by ID', function (done) {
     client.team.delete(cache.id)
