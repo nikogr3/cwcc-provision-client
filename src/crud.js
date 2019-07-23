@@ -81,7 +81,7 @@ module.exports = class Crud {
   }
 
   /**
-   * Deletes an object
+   * Hard Deletes an object
    * @param {Integer} id - the ID of the object to delete
    * @return {Promise} the request promise, which resolves to undefined when
    * successful
@@ -93,6 +93,31 @@ module.exports = class Crud {
     options.url = this.parent.urls[this.type] + '/' + id
     // set REST operation to DELETE
     options.method = 'DELETE'
+    // return promise
+    return request(options)
+  }
+
+  /**
+   * Soft Deletes an object
+   * @param {Integer} id - the ID of the object to delete
+   * @return {Promise} the request promise, which resolves to undefined when
+   * successful
+   */
+  disable (id) {
+    // build base options for REST request
+    const options = this.baseOptions()
+    // get the REST URL path for this object type
+    options.url = this.parent.urls[this.type]
+    // set REST operation to PUT
+    options.method = 'PUT'
+    // build REST body to soft-delete (disable) object
+    options.body = {
+      id,
+      type: this.type,
+      attributes: {
+        status__i: 0
+      }
+    }
     // return promise
     return request(options)
   }
