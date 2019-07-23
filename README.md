@@ -44,3 +44,6 @@ client.team.list()
   console.log('error listing Teams:', e.message)
 })
 ```
+
+# Reference
+REST API guide: https://rest-sbxa.ccone.net/rest-api-doc/
