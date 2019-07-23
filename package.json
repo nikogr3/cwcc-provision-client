@@ -1,0 +1,22 @@
+{
+  "name": "cwcc-provision-client",
+  "version": "0.1.0",
+  "description": "Cisco Webex Contact Center provisioning library",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "mocha test",
+    "start": "node src/index.js"
+  },
+  "keywords": [
+    "cisco",
+    "webex",
+    "contact",
+    "center",
+    "cjp"
+  ],
+  "author": "Coty Condry <ccondry@cisco.com>",
+  "license": "ISC",
+  "dependencies": {
+    "request-promise-native": "^1.0.7"
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "fromAddress": "admin@mytenant.com",
+  "apiKey": "your+token+here",
+  "tenantId": "1000000"
+}
