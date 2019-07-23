@@ -84,7 +84,6 @@ describe('client.team.list()', function () {
       const summary = response.auxiliaryDataList.map(v => {
         return {
           id: v.id,
-          tid: v.attributes.tid,
           name: v.attributes.name__s
         }
       })
