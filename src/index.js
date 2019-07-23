@@ -2,6 +2,7 @@
 const crypto = require('crypto')
 const Crud = require('./crud')
 const urls = require('./urls')
+const request = require('request-promise-native')
 
 module.exports = class {
   constructor ({
@@ -43,6 +44,15 @@ module.exports = class {
 
     // Teams
     this.team = new Crud(this, 'team')
+    // Users
+    this.user = new Crud(this, 'user')
+    // add helper function to get user by login name
+    this.user.getByLogin = function (login) {
+      const options = this.baseOptions()
+      options.url = 'api/auxiliary-data/user-data/user'
+      options.qs = {login__s: login}
+      return request(options)
+    }
 
     // function getUser (username) {
     //   const url = '/api/auxiliary-data/user-data/user?login__s=' + username
