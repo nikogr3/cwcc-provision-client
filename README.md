@@ -1,5 +1,5 @@
 # cwcc-provision-client
-This is a JavaScript library for performing REST operations against the Cisco Webex Contact Center platform (formerly known as CJP, purchased from Broadsoft). Tested against the R10 version/release.
+This is a JavaScript library for performing REST operations against the Cisco Webex Contact Center platform. Tested against the R10 version/release.
 
 # Usage
 Check the test folder for examples of how to use this library. Here is an example:
