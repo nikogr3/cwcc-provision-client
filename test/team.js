@@ -2,6 +2,24 @@ const Client = require('../src')
 const config = require('./config')
 const client = new Client(config)
 
+// set log levels from config
+const veryVerbose = config.logLevel === 'veryVerbose'
+const verbose = config.logLevel === 'verbose'
+const quiet = config.logLevel === 'quiet'
+
+function log (response, default) {
+  if (veryVerbose) {
+    console.log(JSON.stringify(response, null, 2))
+  } else if (verbose) {
+    console.log(response)
+  } else if (quiet) {
+    //
+  } else {
+    // normal
+    default()
+  }
+}
+
 const cache = {}
 
 /***********
@@ -46,12 +64,13 @@ describe('client.team.create()', function () {
       //     "internal": false
       // }
 
-      // console.log(JSON.stringify(response, null, 2))
-
       // extract new object ID from response
       cache.id = response[0].links[0].href.split('/').pop()
-      // log
-      console.log('created team', 'T_mocha_test_1', ':', cache.id)
+
+      log(response, () => {
+        console.log('created team', 'T_mocha_test_1', ':', cache.id)
+      })
+
       // success done
       done()
     })
@@ -66,8 +85,9 @@ describe('client.team.get()', function () {
   it('should get team by ID', function (done) {
     client.team.get(cache.id)
     .then(response => {
-      // console.log(JSON.stringify(response, null, 2))
-      console.log('found team', cache.id, ':', response)
+      log(response, () => {
+        console.log('found team', cache.id)
+      })
       done()
     })
     .catch(e => {
@@ -80,14 +100,15 @@ describe('client.team.list()', function () {
   it('should list teams', function (done) {
     client.team.list()
     .then(response => {
-      // console.log(JSON.stringify(response, null, 2))
-      const summary = response.auxiliaryDataList.map(v => {
-        return {
-          id: v.id,
-          name: v.attributes.name__s
-        }
+      log(response, () => {
+        const summary = response.auxiliaryDataList.map(v => {
+          return {
+            id: v.id,
+            name: v.attributes.name__s
+          }
+        })
+        console.log('found', response.auxiliaryDataList.length, 'Teams:', summary)
       })
-      console.log('found', response.auxiliaryDataList.length, 'Teams:', summary)
       done()
     })
     .catch(e => {
@@ -117,11 +138,13 @@ describe('client.team.modify()', function () {
       }
     ])
     .then(response => {
-      // console.log(JSON.stringify(response, null, 2))
       // extract new object ID from response
       cache.id = response[0].links[0].href.split('/').pop()
-      // log
-      console.log('modified team', 'T_mocha_test_1', ':', cache.id)
+
+      log(response, () => {
+        console.log('modified team', 'T_mocha_test_1', ':', cache.id)
+      })
+
       done()
     })
     .catch(e => {
@@ -134,7 +157,9 @@ describe('client.team.delete()', function () {
   it('should delete team by ID', function (done) {
     client.team.delete(cache.id)
     .then(response => {
-      console.log('successfully deleted team', cache.id)
+      log(response, () => {
+        console.log('successfully deleted team', cache.id)
+      })
       done()
     })
     .catch(e => {

@@ -2,6 +2,24 @@ const Client = require('../src')
 const config = require('./config')
 const client = new Client(config)
 
+// set log levels from config
+const veryVerbose = config.logLevel === 'veryVerbose'
+const verbose = config.logLevel === 'verbose'
+const quiet = config.logLevel === 'quiet'
+
+function log (response, default) {
+  if (veryVerbose) {
+    console.log(JSON.stringify(response, null, 2))
+  } else if (verbose) {
+    console.log(response)
+  } else if (quiet) {
+    //
+  } else {
+    // normal
+    default()
+  }
+}
+
 const cache = {
   id: 'AWwf-QKHMYa8Mtuzy-kr'
 }
@@ -80,8 +98,9 @@ describe('client.user.get()', function () {
   it('should get user by ID', function (done) {
     client.user.get(cache.id)
     .then(response => {
-      // console.log(JSON.stringify(response, null, 2))
-      console.log('found user', cache.id, ':', response)
+      log(response, () => {
+        console.log('found user', cache.id, ':', response)
+      })
       done()
     })
     .catch(e => {
@@ -94,8 +113,9 @@ describe('client.user.getByLogin()', function () {
   it('should get user by login name', function (done) {
     client.user.getByLogin('mocha_test_1@dcloud.cisco.com')
     .then(response => {
-      // console.log(JSON.stringify(response, null, 2))
-      console.log('found user', 'mocha_test_1@dcloud.cisco.com', ':', response)
+      log(response, () => {
+        console.log('found user', 'mocha_test_1@dcloud.cisco.com', ':', response)
+      })
       done()
     })
     .catch(e => {
@@ -108,17 +128,18 @@ describe('client.user.list()', function () {
   it('should list users', function (done) {
     client.user.list()
     .then(response => {
-      // console.log(JSON.stringify(response, null, 2))
-      const summary = response.details.users.map(v => {
-        return {
-          id: v.id,
-          login: v.login,
-          emailAddress: v.emailAddress,
-          lastName: v.attributes.lastName__s,
-          firstName: v.attributes.firstName__s
-        }
+      log(response, () => {
+        const summary = response.details.users.map(v => {
+          return {
+            id: v.id,
+            login: v.login,
+            emailAddress: v.emailAddress,
+            lastName: v.attributes.lastName__s,
+            firstName: v.attributes.firstName__s
+          }
+        })
+        console.log('found', response.details.users, 'users:', summary)
       })
-      console.log('found', response.details.users, 'users:', summary)
       done()
     })
     .catch(e => {
@@ -131,7 +152,9 @@ describe('client.user.disable()', function () {
   it('should disable user by ID', function (done) {
     client.user.disable(cache.id)
     .then(response => {
-      console.log('successfully disabled user', cache.id)
+      log(response, () => {
+        console.log('successfully disabled user', cache.id)
+      })
       done()
     })
     .catch(e => {

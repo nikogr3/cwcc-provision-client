@@ -1,5 +1,6 @@
 {
   "fromAddress": "admin@mytenant.com",
   "apiKey": "your+token+here",
-  "tenantId": "1000000"
+  "tenantId": "1000000",
+  "logLevel": "verbose"
 }
