@@ -110,13 +110,28 @@ module.exports = class Crud {
     options.url = this.parent.urls[this.type]
     // set REST operation to PUT
     options.method = 'PUT'
+    // get type string in dashed format
+    const type = options.url.split('/').pop()
     // build REST body to soft-delete (disable) object
-    options.body = {
-      id,
-      type: this.type,
-      attributes: {
-        status__i: 0
+    if (type === 'users') {
+      // users API has different format 🙄
+      options.body = {
+        id,
+        type: 'user',
+        attributes: {
+          status__i: 0
+        }
       }
+    } else {
+      options.body = [
+        {
+          id,
+          type,
+          attributes: {
+            status__i: 0
+          }
+        }
+      ]
     }
     // return promise
     return request(options)
