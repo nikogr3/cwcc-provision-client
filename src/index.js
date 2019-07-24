@@ -35,6 +35,14 @@ module.exports = class {
     this.team = new Crud(this, 'team')
     // Users
     this.user = new Crud(this, 'user')
+    // Virtual Team
+    this.virtualTeam = new Crud(this, 'virtualTeam')
+    // Queue is an alias of Virtual Team
+    this.queue = new Crud(this, 'virtualTeam')
+    // Routing Strategy
+    this.routingStrategy = new Crud(this, 'routingStrategy')
+
+
     // add helper function to get user by login name
     this.user.getByLogin = function (login) {
       const options = this.baseOptions()
