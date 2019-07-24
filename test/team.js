@@ -7,7 +7,7 @@ const veryVerbose = config.logLevel === 'veryVerbose'
 const verbose = config.logLevel === 'verbose'
 const quiet = config.logLevel === 'quiet'
 
-function log (response, default) {
+function log (response, normal) {
   if (veryVerbose) {
     console.log(JSON.stringify(response, null, 2))
   } else if (verbose) {
@@ -16,7 +16,7 @@ function log (response, default) {
     //
   } else {
     // normal
-    default()
+    normal()
   }
 }
 
