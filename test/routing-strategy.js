@@ -21,8 +21,6 @@ function log (response, normal) {
 }
 
 const cache = {
-  // id: 'AWv8etigQK-DHWzALZKO'
-  // id: 'AWv8ewD3uEtVTpuO-UEI'
   id: 'AWv8etigQK-DHWzALZKO'
 }
 
