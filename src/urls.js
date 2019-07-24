@@ -5,7 +5,6 @@ module.exports = {
   user: '/api/security/users',
   routingStrategy: '/api/auxiliary-data/resources/routing-strategy',
   virtualTeam: '/api/auxiliary-data/resources/virtual-team',
-  queue: '/api/auxiliary-data/resources/virtual-team',
   site: '/api/auxiliary-data/resources/site',
   userProfile: '/api/auxiliary-data/user-data/user-profile',
   agentProfile: '/api/auxiliary-data/user-data/agent-profile',
