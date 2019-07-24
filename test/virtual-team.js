@@ -121,7 +121,7 @@ describe('client.virtualTeam.get()', function () {
 })
 
 describe('client.virtualTeam.list()', function () {
-  it('should list teams', function (done) {
+  it('should list virtual teams', function (done) {
     client.virtualTeam.list()
     .then(response => {
       log(response, () => {
