@@ -31,17 +31,6 @@ module.exports = class {
     .update(fromAddress)
     .digest('base64')
 
-    // build REST request base options
-    // this.options = {
-    //   baseUrl: this.baseUrl,
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'From': this.fromAddress,
-    //     'Authorization': `${this.authKey}; tenantId=${this.tenantId}`
-    //   },
-    //   json: true
-    // }
-
     // Teams
     this.team = new Crud(this, 'team')
     // Users
@@ -54,17 +43,7 @@ module.exports = class {
       return request(options)
     }
 
-    // function getUser (username) {
-    //   const url = '/api/auxiliary-data/user-data/user?login__s=' + username
-    //   return request(buildOptions({url}))
-    // }
-
   }
-
-  // add URL path to base request options, assign to new object, return it
-  // buildOptions (params) {
-  //   return Object.assign({}, this.options, params)
-  // }
 
   // REST request base options
   baseOptions () {
