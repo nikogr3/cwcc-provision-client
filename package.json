@@ -4,8 +4,7 @@
   "description": "Cisco Webex Contact Center provisioning library",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha test",
-    "start": "node src/index.js"
+    "test": "mocha test --timeout 20000"
   },
   "keywords": [
     "cisco",
