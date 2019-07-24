@@ -9,18 +9,18 @@ module.exports = class Crud {
   }
 
   /**
-   * default options for REST request
-   */
+  * default options for REST request
+  */
   baseOptions () {
     return this.parent.baseOptions()
   }
 
   /**
-   * Creates an object
-   * @param {String} body - the new object's body
-   * @return {Promise} the request promise, which resolves to undefined when
-   * successful
-   */
+  * Creates an object
+  * @param {String} body - the new object's body
+  * @return {Promise} the request promise, which resolves to undefined when
+  * successful
+  */
   create (body) {
     // build base options for REST request
     const options = this.baseOptions()
@@ -35,10 +35,10 @@ module.exports = class Crud {
   }
 
   /**
-   * Retrieve single object
-   * @param {String} id - the object ID
-   * @return {Promise} the request promise, which resolves to the object
-   */
+  * Retrieve single object
+  * @param {String} id - the object ID
+  * @return {Promise} the request promise, which resolves to the object
+  */
   get (id) {
     const options = this.baseOptions()
     options.url = this.parent.urls[this.type] + '/' + id
@@ -46,10 +46,10 @@ module.exports = class Crud {
   }
 
   /**
-   * Lists objects
-   * @param {Object} qs - query string
-   * @return {Promise} a request-promise-native promise
-   */
+  * Lists objects
+  * @param {Object} qs - query string
+  * @return {Promise} a request-promise-native promise
+  */
   list (qs) {
     // build base options for REST request
     const options = this.baseOptions()
@@ -62,12 +62,12 @@ module.exports = class Crud {
   }
 
   /**
-   * Modifies an object
-   * @param {String} id - the object ID (same as username)
-   * @param {Object} data - the new data to replace existing data
-   * @return {Promise} the request promise, which resolves to undefined when
-   * successful
-   */
+  * Modifies an object
+  * @param {String} id - the object ID (same as username)
+  * @param {Object} data - the new data to replace existing data
+  * @return {Promise} the request promise, which resolves to undefined when
+  * successful
+  */
   modify (id, data) {
     // build base options for REST request
     const options = this.baseOptions()
@@ -77,15 +77,17 @@ module.exports = class Crud {
     options.method = 'PUT'
     // attach data to request body
     options.body = data
+    // set ID of object to be updated in the body
+    options.body[0].id = id
     return request(options)
   }
 
   /**
-   * Hard Deletes an object
-   * @param {Integer} id - the ID of the object to delete
-   * @return {Promise} the request promise, which resolves to undefined when
-   * successful
-   */
+  * Hard Deletes an object
+  * @param {Integer} id - the ID of the object to delete
+  * @return {Promise} the request promise, which resolves to undefined when
+  * successful
+  */
   delete (id) {
     // build base options for REST request
     const options = this.baseOptions()
@@ -98,11 +100,11 @@ module.exports = class Crud {
   }
 
   /**
-   * Soft Deletes an object
-   * @param {Integer} id - the ID of the object to delete
-   * @return {Promise} the request promise, which resolves to undefined when
-   * successful
-   */
+  * Soft Deletes an object
+  * @param {Integer} id - the ID of the object to delete
+  * @return {Promise} the request promise, which resolves to undefined when
+  * successful
+  */
   disable (id) {
     // build base options for REST request
     const options = this.baseOptions()
