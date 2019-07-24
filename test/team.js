@@ -49,21 +49,6 @@ describe('client.team.create()', function () {
     // go
     client.team.create(body)
     .then(response => {
-
-      // example response:
-      //   {
-      //     "code": 200,
-      //     "details": null,
-      //     "links": [
-      //         {
-      //             "rel": null,
-      //             "method": null,
-      //             "href": "/auxiliary-data/resources/team/AV9XQ63OKvTyRq5FvmnK"
-      //         }
-      //     ],
-      //     "internal": false
-      // }
-
       // extract new object ID from response
       cache.id = response[0].links[0].href.split('/').pop()
 
