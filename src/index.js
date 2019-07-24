@@ -31,6 +31,9 @@ module.exports = class {
     .update(fromAddress)
     .digest('base64')
 
+    /*******************
+    CRUD operation types
+    *******************/
     // Teams
     this.team = new Crud(this, 'team')
     // Users
