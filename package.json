@@ -17,5 +17,13 @@
   "license": "ISC",
   "dependencies": {
     "request-promise-native": "^1.0.7"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ccondry/cwcc-provision-client.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ccondry/cwcc-provision-client/issues"
+  },
+  "homepage": "https://github.com/ccondry/cwcc-provision-client#readme"
 }
