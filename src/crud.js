@@ -78,7 +78,7 @@ module.exports = class Crud {
     // attach data to request body
     options.body = data
     // set ID of object to be updated in the body
-    options.body[0].id = id
+    // options.body[0].id = id
     return request(options)
   }
 
