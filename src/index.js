@@ -44,6 +44,8 @@ module.exports = class {
     this.queue = new Crud(this, 'virtualTeam')
     // Routing Strategy
     this.routingStrategy = new Crud(this, 'routingStrategy')
+    // User Profile
+    this.userProfile = new Crud(this, 'userProfile')
 
 
     // add helper function to get user by login name
