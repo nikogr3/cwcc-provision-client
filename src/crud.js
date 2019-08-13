@@ -6,6 +6,8 @@ module.exports = class Crud {
     this.type = type
     this.suffix = suffix
     this.suffix2 = suffix2
+    this.url = parent.urls[type]
+    if (!this.url) throw Error('API URL for type ' + type + ' is not defined.')
   }
 
   /**
