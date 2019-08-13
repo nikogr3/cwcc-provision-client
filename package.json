@@ -1,6 +1,6 @@
 {
   "name": "cwcc-provision-client",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Cisco Webex Contact Center provisioning library",
   "main": "src/index.js",
   "scripts": {
