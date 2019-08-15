@@ -69,37 +69,38 @@ const template = {
   }
 }
 
-// describe('client.routingStrategy.create()', function () {
-//   it('should create routing strategy', function (done) {
-//     // build valid body
-//     const body = [template]
-//     // go
-//     client.routingStrategy.create(body)
-//     .then(response => {
-//
-//       // extract new object ID from response
-//       cache.id = response[0].links[0].href.split('/').pop()
-//
-//       log(response, () => {
-//         console.log('created routing strategy', 'Mocha Test Entry Point', ':', cache.id)
-//       })
-//
-//       // success done
-//       done()
-//     })
-//     .catch(e => {
-//       // error / fail done
-//       done(e)
-//     })
-//   })
-// })
+describe('client.routingStrategy.create()', function () {
+  it('should create routing strategy', function (done) {
+    // build valid body
+    const body = [template]
+    // go
+    client.routingStrategy.create(body)
+    .then(response => {
+
+      // extract new object ID from response
+      cache.id = response[0].links[0].href.split('/').pop()
+
+      log(response, () => {
+        console.log('created routing strategy', 'Mocha Test Entry Point', ':', cache.id)
+      })
+
+      // success done
+      done()
+    })
+    .catch(e => {
+      // error / fail done
+      done(e)
+    })
+  })
+})
 
 describe('client.routingStrategy.get()', function () {
   it('should get team by ID', function (done) {
     client.routingStrategy.get(cache.id)
     .then(response => {
       log(response, () => {
-        console.log('found routing strategy', cache.id)
+       console.log('found routing strategy', cache.id)
+       cache.data = response
       })
       done()
     })
@@ -130,57 +131,102 @@ describe('client.routingStrategy.list()', function () {
   })
 })
 
-// describe('client.routingStrategy.modify()', function () {
-//   it('should modify team by ID', function (done) {
-//     // update a few elements of the template data
-//     template.attributes.name__s = 'Mocha Test Entry Point - Modified'
-//     template.attributes.description__s = 'Mocha Test Entry Point - Modified'
-//     // build valid body
-//     const body = [template]
-//     // go
-//     client.routingStrategy.modify(cache.id, body)
-//     .then(response => {
-//       // extract new object ID from response
-//       cache.id = response[0].links[0].href.split('/').pop()
-//
-//       log(response, () => {
-//         console.log('modified routing strategy', 'Mocha Test Entry Point', ':', cache.id)
-//       })
-//
-//       done()
-//     })
-//     .catch(e => {
-//       done(e)
-//     })
-//   })
-// })
-//
-// describe('client.routingStrategy.disable()', function () {
-//   it('should disable (soft-delete) routing strategy by ID', function (done) {
-//     client.routingStrategy.disable(cache.id)
-//     .then(response => {
-//       log(response, () => {
-//         console.log('successfully disabled routing strategy', cache.id)
-//       })
-//       done()
-//     })
-//     .catch(e => {
-//       done(e)
-//     })
-//   })
-// })
-//
-// describe('client.routingStrategy.delete()', function () {
-//   it('should delete (hard-delete) routing strategy by ID', function (done) {
-//     client.routingStrategy.delete(cache.id)
-//     .then(response => {
-//       log(response, () => {
-//         console.log('successfully deleted routing strategy', cache.id)
-//       })
-//       done()
-//     })
-//     .catch(e => {
-//       done(e)
-//     })
-//   })
-// })
+describe('client.routingStrategy.modify()', function () {
+  it('should modify team by ID', function (done) {
+    // update a few elements of the template data
+    template.attributes.name__s = 'Mocha Test Entry Point - Modified'
+    template.attributes.description__s = 'Mocha Test Entry Point - Modified'
+    // build valid body
+    const body = [template]
+    // go
+    client.routingStrategy.modify(cache.id, body)
+    .then(response => {
+      // extract new object ID from response
+      cache.id = response[0].links[0].href.split('/').pop()
+
+      log(response, () => {
+        console.log('modified routing strategy', 'Mocha Test Entry Point', ':', cache.id)
+      })
+
+      done()
+    })
+    .catch(e => {
+      done(e)
+    })
+  })
+})
+
+describe('client.routingStrategy.disable()', function () {
+  it('should disable (soft-delete) routing strategy by ID', function (done) {
+    client.routingStrategy.disable(cache.id)
+    .then(response => {
+      log(response, () => {
+        console.log('successfully disabled routing strategy', cache.id)
+      })
+      done()
+    })
+    .catch(e => {
+      done(e)
+    })
+  })
+})
+
+
+describe('client.routingStrategy.create()', function () {
+  it('should create a Current routing strategy based on the Active one just created', function (done) {
+    // copy routing strategy data
+    const rs = JSON.parse(JSON.stringify(cache.data))
+    // console.log(JSON.stringify(rs, null, 2))
+    // modify name
+    rs.attributes.name__s = 'Current-' + rs.attributes.name__s
+    // modify current flag
+    rs.attributes.currentStatus__i = 1
+    // replace properties with correct name convention for the API
+    rs.attributes.tid__s = rs.attributes.tid
+    delete rs.attributes.tid
+
+    rs.attributes.sid__s = rs.attributes.sid
+    delete rs.attributes.sid
+
+    rs.attributes.cstts__l = rs.attributes.cstts
+    delete rs.attributes.cstts
+
+    // set parent ID
+    rs.attributes.parentStrategyId__s = rs.id
+
+    // remove id
+    delete rs.id
+    // remove extra data
+    delete rs.auxiliaryDataType
+    delete rs.attributes._lmts__l
+    delete rs.attributes.sid__s
+
+    // console.log(JSON.stringify(rs, null, 2))
+    // create current rs
+    client.routingStrategy.create([rs])
+    .then(response => {
+      log(response, () => {
+        console.log('successfully created Current routing strategy', cache.currentId)
+      })
+      done()
+    })
+    .catch(e => {
+      done(e)
+    })
+  })
+})
+
+describe('client.routingStrategy.delete()', function () {
+  it('should delete (hard-delete) routing strategy by ID', function (done) {
+    client.routingStrategy.delete(cache.id)
+    .then(response => {
+      log(response, () => {
+        console.log('successfully deleted routing strategy', cache.id)
+      })
+      done()
+    })
+    .catch(e => {
+      done(e)
+    })
+  })
+})
