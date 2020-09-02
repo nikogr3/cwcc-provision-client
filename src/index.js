@@ -46,6 +46,12 @@ module.exports = class {
     this.routingStrategy = new Crud(this, 'routingStrategy')
     // User Profile
     this.userProfile = new Crud(this, 'userProfile')
+    // Skill Profile
+    this.userProfile = new Crud(this, 'skillProfile')
+    // Agent Skill
+    this.userProfile = new Crud(this, 'agentSkill')
+    // Agent Profile
+    this.userProfile = new Crud(this, 'agentProfile')
 
 
     // add helper function to get user by login name
